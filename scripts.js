@@ -1,24 +1,63 @@
 /*Author: Adam Kabbara
  *Data: 06-16-2019
+ *Updated: 06-18-2019
  */
 
 var cards = [];
 var cards_packet = [];
 var deck;
 
+// variables to track the cards the user picked
+var has_fliped = false;
+var first_card, second_card;
+var lock = false;
+
 function flipCard() {
-  this.classList.add("flip")
-  //console.log(this.classList);
+  if (this == first_card) return;
+  if (lock) return;
+
+  this.classList.add("flip");
+
+  if (!has_fliped) {
+    first_card = this;
+    has_fliped = true;
+  }
+  else {
+    second_card = this;
+
+    var second_face = second_card.getAttribute("data-card-type");
+    var first_face = first_card.getAttribute("data-card-type");
+  
+    if (second_face == first_face) {
+      // The two cards are a match
+      this.removeEventListener("click", flipCard);
+      first_card.removeEventListener("click", flipCard);
+
+      resetBoard();
+    }
+    else {
+      // The two cards are a mismatch
+      lock = true;
+
+      setTimeout(() => {
+        this.classList.remove("flip");
+        first_card.classList.remove("flip");
+
+        resetBoard();
+      }, 1500)}
+  }
+}
+
+function resetBoard() {
+  [first_card, second_card] = [null, null];
+  [lock, has_fliped] = [false, false];
 }
 
 function setup() {
 
-  console.log(deck);
-  console.log(cardss);
-
   for (var card_x = 0; card_x < deck.remaining; card_x = card_x + 1) {
     document.getElementById("memory-board").innerHTML += 
-      `<div class=\"memory-card\">
+      `<div class=\"memory-card\" data-card-type=\"${cardss[card_x].value}\">
         <img class=\"front_face\" src=\"./img/${cardss[card_x].code}.png\">
         <img class=\"back_face\" src=\"./img/red_back.png\">
       </div>`;
