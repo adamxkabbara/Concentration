@@ -19,38 +19,55 @@ function flipCard() {
   this.classList.add("flip");
 
   if (!has_fliped) {
+    // First card is fliped
+
     first_card = this;
     has_fliped = true;
   }
   else {
+    //Second card is fliped
+
     second_card = this;
 
-    var second_face = second_card.getAttribute("data-card-type");
-    var first_face = first_card.getAttribute("data-card-type");
-  
-    if (second_face == first_face) {
-      // The two cards are a match
-      this.removeEventListener("click", flipCard);
-      first_card.removeEventListener("click", flipCard);
-
-      resetBoard();
-    }
-    else {
-      // The two cards are a mismatch
-      lock = true;
-
-      setTimeout(() => {
-        this.classList.remove("flip");
-        first_card.classList.remove("flip");
-
-        resetBoard();
-      }, 1500)}
+    checkForMatch();
   }
 }
 
 function resetBoard() {
   [first_card, second_card] = [null, null];
   [lock, has_fliped] = [false, false];
+}
+
+function checkForMatch() {
+  var second_face = second_card.getAttribute("data-card-type");
+  var first_face = first_card.getAttribute("data-card-type");
+
+  if (second_face == first_face) {
+    // The two cards are a match
+    disableCards();
+  }
+  else {
+    // The two cards are a mismatch
+    unflipCards();
+  }
+}
+
+function disableCards() {
+  this.removeEventListener("click", flipCard);
+  first_card.removeEventListener("click", flipCard);
+
+  resetBoard();
+}
+
+function unflipCards() {
+  lock = true;
+
+  setTimeout(() => {
+    second_card.classList.remove("flip");
+    first_card.classList.remove("flip");
+
+    resetBoard();
+  }, 1500);
 }
 
 function setup() {
