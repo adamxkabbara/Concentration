@@ -1,0 +1,72 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-family: 'Oxygen', sans-serif;
+}
+
+body {
+  background-color: rgb(71, 113, 72);
+  font-size: 20px;
+}
+
+#main {
+  width: 1200px;
+  height: 700px;
+  margin: auto;
+  margin-top: 50px;
+  position: relative;
+  text-align: center;
+}
+
+.honor {
+  width: 300px;
+  position: absolute;
+}
+
+.one {
+  top: 35px;
+  left: 0px;
+  transform: rotate(315deg);
+}
+
+.two {
+  top: 35px;
+  right: 0px;
+  transform: rotate(45deg);
+}
+
+.three {
+  bottom: 150px;
+  right: 0px;
+  transform: rotate(135deg);
+}
+
+.four {
+  bottom: 150px;
+  left: 0px;
+  transform: rotate(225deg);
+}
+
+#game-rules {
+  width: 600px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.welcome {
+  justify-content: center;
+}
+
+#new-game-btn {
+  width: 150px;
+  height: 50px;
+  margin: 50px;
+  background-color: white;
+  border-radius: 7px;
+  border-color: rgb(100, 97, 97);
+}
+
+#new-game-btn:hover {
+  cursor: pointer;
+}

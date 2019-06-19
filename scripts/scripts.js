@@ -25,7 +25,7 @@ function flipCard() {
     has_fliped = true;
   }
   else {
-    //Second card is fliped
+    //Second card is fliped 
 
     second_card = this;
 
